@@ -1,24 +1,27 @@
 from launch import LaunchDescription
 from launch.actions import IncludeLaunchDescription, LogInfo
-from launch.substitutions import LaunchConfiguration, PathJoinSubstitution,FileContent
+from launch.substitutions import LaunchConfiguration, PathJoinSubstitution,FileContent,TextSubstitution
 from launch_ros.substitutions import FindPackageShare
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch_ros.actions import Node
-import os
+
 
 
 def generate_launch_description():
     use_sim_time=LaunchConfiguration('use_sim_time', default='true')
-    
-    urdf_path=LaunchConfiguration('urdf_path', default=PathJoinSubstitution([FindPackageShare('tortoisebot_description'),'models', 'tortoisebot_Task2.urdf']))
+    urdf_file=LaunchConfiguration('urdf_file', default='tortoisebot_Task2.urdf')
+    urdf_path=LaunchConfiguration('urdf_path', default=PathJoinSubstitution([FindPackageShare('tortoisebot_description'),'models', urdf_file]))
     urdf_content=FileContent(urdf_path)
-    
+
+    world_file=LaunchConfiguration('world_file', default='empty_world.sdf')
     world_path=LaunchConfiguration('world_path', default=PathJoinSubstitution([
-        FindPackageShare('tortoisebot_gazebo'), 'worlds', 'empty_world.sdf'
-    ]))
+        FindPackageShare('tortoisebot_gazebo'), 'worlds', world_file]))
     rviz_config=LaunchConfiguration('rviz_file', default=PathJoinSubstitution([FindPackageShare('tortoisebot_description'),'config', 'rviz.rviz']))
-    
-    bridge_params=os.path.join(FindPackageShare('tortoisebot_gazebo').find('tortoisebot_gazebo'),'config','bridge_parameters.yaml')
+
+    bridge_param_file=LaunchConfiguration('bridge_param_file', default='bridge_parameters.yaml')
+    # bridge_param_file='bridge_parameters.yaml'
+    bridge_param_path=LaunchConfiguration('bridge_param_path', default=PathJoinSubstitution([FindPackageShare('tortoisebot_gazebo'),'config',bridge_param_file]))
+    # bridge_param_path=os.path.join(FindPackageShare('tortoisebot_gazebo').find('tortoisebot_gazebo'),'config','bridge_parameters.yaml')
     
 
     
@@ -46,7 +49,7 @@ def generate_launch_description():
             '-name', 'tortoisebot',
             #'-t','robot_description',
             '-file', urdf_path,
-            '-x','0','-y','0',
+            '-x','2','-y','3',
             '-z', '2'
             ],
             output='screen'
@@ -55,11 +58,13 @@ def generate_launch_description():
     gazebo_ros_bridge=Node(
         package='ros_gz_bridge',
 		executable='parameter_bridge',
-		arguments=[
-            '--ros-args','-p', f'config_file:={bridge_params}'
-    ],
+        parameters=[{
+            'config_file':bridge_param_path
+        }],
+        
 	output='screen'
   )
+    
     
 
     rviz_launch_file=IncludeLaunchDescription(

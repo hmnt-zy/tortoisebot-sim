@@ -10,29 +10,39 @@ from launch.conditions import UnlessCondition,IfCondition
 
 
 def generate_launch_description():
-    use_laser_filters=LaunchConfiguration('use_laser_filters', default='false')
+    localize=LaunchConfiguration('localize', default='false')
 
-    urdf_path=LaunchConfiguration('urdf_path', default=PathJoinSubstitution([FindPackageShare('tortoisebot_description'),'models', 'tortoisebot_Task4.urdf']))
+    urdf_file=LaunchConfiguration('urdf_file', default='tortoisebot_Task4.urdf')
+    
+    
+
+    urdf_path=LaunchConfiguration('urdf_path', default=PathJoinSubstitution([FindPackageShare('tortoisebot_description'),'models', urdf_file]))
     
     slam_params_file=LaunchConfiguration('slam_param_file', default=PathJoinSubstitution([FindPackageShare('tortoisebot_mapping').find('tortoisebot_mapping'),'config', 'mapping_config.yaml']))
+
+    localize_params_file=LaunchConfiguration('slam_param_file', default=PathJoinSubstitution([FindPackageShare('tortoisebot_mapping').find('tortoisebot_mapping'),'config', 'localize_config.yaml']))
     
-    bridge_file_path=''#PathJoinSubstitution([FindPackageShare('tortoisebot_gazebo').find('tortoisebot_gazebo'),'config', 'mapping_bridge.yaml'])
+    bridge_param_file=LaunchConfiguration('bridge_param_file', default='mapping_bridge.yaml')
 
     world_file=LaunchConfiguration('world_file', default='custom_world.world.sdf')
     
-    world_path=PathJoinSubstitution([FindPackageShare('tortoisebot_gazebo'),'worlds', world_file])
-
+    
     rviz_config=LaunchConfiguration('rviz_file', default=PathJoinSubstitution([FindPackageShare('tortoisebot_description'),'config', 'rviz_Task4.rviz']))
     
-    gazebo_rviz_launch_file=IncludeLaunchDescription( PathJoinSubstitution([FindPackageShare('tortoisebot_gazebo'),'launch','gazebo_launch.py']),launch_arguments={'urdf_path':urdf_path,'world_path':world_path,'rviz_file':rviz_config}.items())
+    gazebo_rviz_launch_file=IncludeLaunchDescription( PathJoinSubstitution([FindPackageShare('tortoisebot_gazebo'),'launch','gazebo_launch.py']),launch_arguments={'urdf_path':urdf_path,'world_file':world_file,'rviz_file':rviz_config,'bridge_param_file':bridge_param_file}.items())
+    
+    
+    slam_localization_launch = IncludeLaunchDescription( PathJoinSubstitution([FindPackageShare('slam_toolbox'),'launch','localization_launch.py']),launch_arguments={'slam_params_file':localize_params_file,'use_sim_time':'true'}.items())
 
-    slam_launch = IncludeLaunchDescription( PathJoinSubstitution([FindPackageShare('slam_toolbox'),'launch','online_async_launch.py']),launch_arguments={'slam_params_file':slam_params_file,'use_sim_time':'true'}.items())
+    slam_mapping_launch = IncludeLaunchDescription( PathJoinSubstitution([FindPackageShare('slam_toolbox'),'launch','online_async_launch.py']),launch_arguments={'slam_params_file':slam_params_file,'use_sim_time':'true'}.items())
+
     
     
     return LaunchDescription([
         
         gazebo_rviz_launch_file,
-        slam_launch,
+        # slam_mapping_launch,
+        slam_localization_launch,
         
 
     ])

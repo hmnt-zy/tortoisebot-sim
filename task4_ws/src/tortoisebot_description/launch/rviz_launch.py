@@ -30,7 +30,7 @@ def generate_launch_description():
 		package='robot_state_publisher',
 		executable='robot_state_publisher',
 		name='robot_state_publisher',
-		parameters=[{'use_sim_time':use_sim_time,'robot_description':urdf_content}],
+		parameters=[{'robot_description':urdf_content}],
 		output='screen'
 	)
 	start_jsp=Node(

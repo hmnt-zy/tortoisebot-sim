@@ -556,10 +556,10 @@
             <specular>1 1 1 1</specular>
             <pbr>
               <metal>
-                <albedo_map>materials/textures/Fridge_Albedo.jpg</albedo_map>
-                <normal_map>materials/textures/Fridge_Normal.png</normal_map>
-                <roughness_map>materials/textures/Fridge_Roughness.jpg</roughness_map>
-                <metalness_map>materials/textures/Fridge_Metalness.jpg</metalness_map>
+                <albedo_map>file:///home/arz-1013/.gz/fuel/fuel.gazebosim.org/openrobotics/models/refrigerator/1/materials/textures/Fridge_Albedo.jpg</albedo_map>
+                <normal_map>file:///home/arz-1013/.gz/fuel/fuel.gazebosim.org/openrobotics/models/refrigerator/1/materials/textures/Fridge_Normal.png</normal_map>
+                <roughness_map>file:///home/arz-1013/.gz/fuel/fuel.gazebosim.org/openrobotics/models/refrigerator/1/materials/textures/Fridge_Roughness.jpg</roughness_map>
+                <metalness_map>file:///home/arz-1013/.gz/fuel/fuel.gazebosim.org/openrobotics/models/refrigerator/1/materials/textures/Fridge_Metalness.jpg</metalness_map>
               </metal>
             </pbr>
           </material>
@@ -623,9 +623,9 @@
             <specular>1 1 1 1</specular>
             <pbr>
               <metal>
-                <albedo_map>materials/textures/Crate_Albedo.jpg</albedo_map>
-                <normal_map>materials/textures/Crate_Normal.jpg</normal_map>
-                <roughness_map>materials/textures/Crate_Roughness.jpg</roughness_map>
+                <albedo_map>file:///home/arz-1013/.gz/fuel/fuel.gazebosim.org/openrobotics/models/large crate/5/materials/textures/Crate_Albedo.jpg</albedo_map>
+                <normal_map>file:///home/arz-1013/.gz/fuel/fuel.gazebosim.org/openrobotics/models/large crate/5/materials/textures/Crate_Normal.jpg</normal_map>
+                <roughness_map>file:///home/arz-1013/.gz/fuel/fuel.gazebosim.org/openrobotics/models/large crate/5/materials/textures/Crate_Roughness.jpg</roughness_map>
               </metal>
             </pbr>
           </material>

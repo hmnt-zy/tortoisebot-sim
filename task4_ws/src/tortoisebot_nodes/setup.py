@@ -24,7 +24,9 @@ setup(
         'console_scripts': [
             'follow_the_closest_object = tortoisebot_nodes.ball_follower_script:main',
             'find_closest_object_distance= tortoisebot_nodes.lidar_filter_script:main',
-            'find_distance_using_laser_filters=tortoisebot_nodes.filter_using_laser_filters:main'
+            'find_distance_using_laser_filters=tortoisebot_nodes.filter_using_laser_filters:main',
+            'test_parameter = tortoisebot_nodes.test_parameter:main',
+            'test_lifecycle = tortoisebot_nodes.test_lifecycle:main'
         
         ],
     },

@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<robot name="tortoisebot">
+<robot name="tortoisebot-t4">
 
 <material name="black">
         <color rgba="0 0 0 1"/>
@@ -168,7 +168,7 @@
 <wheel_separation>0.25</wheel_separation>
 <wheel_radius>0.035</wheel_radius>
 <odom_publish_frequency>30</odom_publish_frequency>
-<topic>cmd_vel</topic>
+<topic>/cmd_vel</topic>
 <tf_topic>/tf</tf_topic>
 <publish_odom_tf>true</publish_odom_tf>
 <odom_topic>/odom</odom_topic>
