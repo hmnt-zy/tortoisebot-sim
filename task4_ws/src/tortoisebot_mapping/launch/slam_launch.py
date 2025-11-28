@@ -27,7 +27,7 @@ def generate_launch_description():
     world_file=LaunchConfiguration('world_file', default='custom_world.world.sdf')
     
     
-    rviz_config=LaunchConfiguration('rviz_file', default=PathJoinSubstitution([FindPackageShare('tortoisebot_description'),'config', 'rviz_Task4.rviz']))
+    rviz_config=LaunchConfiguration('rviz_file', default=PathJoinSubstitution([FindPackageShare('tortoisebot_description'),'config', 'rviz_task4.rviz']))
     
     gazebo_rviz_launch_file=IncludeLaunchDescription( PathJoinSubstitution([FindPackageShare('tortoisebot_gazebo'),'launch','gazebo_launch.py']),launch_arguments={'urdf_path':urdf_path,'world_file':world_file,'rviz_file':rviz_config,'bridge_param_file':bridge_param_file}.items())
     
