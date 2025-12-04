@@ -50,7 +50,7 @@ def generate_launch_description():
             '-name', 'tortoisebot',
             #'-t','robot_description',
             '-file', urdf_path,
-            '-x','2','-y','3', #updated spawn coordinates to check localization
+            '-x','0','-y','0', # spawn coordinates 
             '-z', '2'
             ],
             output='screen'
